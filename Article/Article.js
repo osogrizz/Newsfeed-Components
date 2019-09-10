@@ -131,9 +131,11 @@ function articleCreator(title ,date ,p1 ,p2 , p3) {
   const paragraph1 = document.createElement('p');
   paragraph1.textContent = p1;
   article.appendChild(paragraph1);
+
   const paragraph2 = document.createElement('p');
   paragraph2.textContent = p2;
   article.appendChild(paragraph2);
+  
   const paragraph3 = document.createElement('p');
   paragraph3.textContent = p3;
   article.appendChild(paragraph3);
