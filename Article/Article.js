@@ -85,6 +85,24 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Beer Me',
+    date: 'naow',
+    firstParagraph: `Lorem ipsum dolor amet disrupt chillwave literally direct trade migas XOXO hexagon paleo cred flexitarian taxidermy hella health goth keytar. Organic typewriter gluten-free, mumblecore 8-bit biodiesel chambray butcher authentic 3 wolf moon tacos pabst pok pok. 90's cold-pressed beard hexagon typewriter. Before they sold out raw denim pabst hell of adaptogen. Kogi messenger bag hammock twee fingerstache portland. `,
+
+    secondParagraph: `Iceland VHS pinterest chia. Chillwave 8-bit tattooed truffaut kombucha pop-up tbh hot chicken pinterest cloud bread before they sold out salvia trust fund sustainable narwhal. DIY intelligentsia vegan sartorial bushwick unicorn whatever chartreuse kitsch yr semiotics heirloom. Chartreuse portland pickled locavore heirloom, kinfolk pork belly selvage four dollar toast letterpress. Narwhal 3 wolf moon pickled, tofu art party bitters helvetica try-hard kickstarter yr normcore succulents hoodie aesthetic. Kickstarter kitsch banjo keytar master cleanse coloring book. `,
+
+    thirdParagraph: `Umami butcher sartorial banh mi venmo farm-to-table tote bag. Offal fanny pack kombucha, jianbing VHS messenger bag lomo chartreuse tote bag adaptogen whatever bushwick paleo slow-carb iPhone. Shaman deep v venmo distillery, typewriter organic keytar glossier gastropub next level salvia pok pok XOXO artisan. Ramps pour-over +1 lyft helvetica tilde everyday carry locavore keytar chillwave sartorial normcore. Schlitz you probably haven't heard of them succulents heirloom snackwave pour-over, street art authentic.`
+  },
+  {
+    title: 'Oh. You need a little dummy text for your mockup? How quaint.',
+    date: 'Jan 1 2000',
+    firstParagraph: `Aesthetic unicorn narwhal, bicycle rights godard gentrify cloud bread est. XOXO ut vice schlitz cray, eu hot chicken farm-to-table brunch aliquip. Banjo adipisicing pork belly health goth tumblr proident. Fashion axe cliche pabst deep v brooklyn try-hard, kickstarter glossier vape. Health goth brooklyn pork belly ullamco lomo tofu four dollar toast vice. Mixtape fugiat tumeric, master cleanse green juice craft beer pour-over man braid chia. Skateboard tattooed green juice twee master cleanse. `,
+
+    secondParagraph: `Quinoa yr dolore leggings quis. Hexagon cold-pressed vinyl coloring book letterpress, before they sold out meditation deep v twee subway tile polaroid pabst actually. Knausgaard ad tousled poke cold-pressed cronut raclette gentrify. Skateboard aute affogato, wayfarers cliche viral tilde meditation nulla literally blue bottle. Single-origin coffee squid dreamcatcher adaptogen skateboard deep v chillwave umami hell of +1 kinfolk seitan quinoa. Kickstarter cillum pabst wolf, PBR&B non polaroid selvage church-key in. Scenester in portland, actually pok pok meditation raclette ut activated charcoal man bun exercitation intelligentsia asymmetrical viral distillery. `,
+
+    thirdParagraph: `Lorem ipsum dolor amet truffaut id cillum labore mollit. Chambray cornhole commodo mollit taxidermy beard keytar. Commodo echo park tousled activated charcoal cornhole tbh bicycle rights culpa dreamcatcher fixie hammock. Ut hot chicken green juice, actually et direct trade XOXO butcher subway tile chambray.`
   }
 ];
 
@@ -113,12 +131,10 @@ const data = [
 
 */
 
-function articleCreator(title ,date ,p1 ,p2 , p3) {
-  const allArticles = document.querySelector('.articles');
+function articleCreator({title, date, firstParagraph, secondParagraph, thirdParagraph }) {
   const article = document.createElement('div');
   article.classList.add('article');
-  allArticles.appendChild(article);
-
+  
   const articleTitle = document.createElement('h2');
   articleTitle.textContent = title;
   article.appendChild(articleTitle);
@@ -129,30 +145,34 @@ function articleCreator(title ,date ,p1 ,p2 , p3) {
   article.appendChild(articelDate)
   
   const paragraph1 = document.createElement('p');
-  paragraph1.textContent = p1;
+  paragraph1.textContent = firstParagraph;
   article.appendChild(paragraph1);
-
+  
   const paragraph2 = document.createElement('p');
-  paragraph2.textContent = p2;
+  paragraph2.textContent = secondParagraph;
   article.appendChild(paragraph2);
   
   const paragraph3 = document.createElement('p');
-  paragraph3.textContent = p3;
+  paragraph3.textContent = thirdParagraph;
   article.appendChild(paragraph3);
-
-
+  
+  
   const button = document.createElement('span');
   button.classList.add('expandButton');
   button.classList.add('close');
   button.addEventListener('click', event => {
     article.classList.toggle('article-open');
-    button.classList.toggle('close');
   })
   article.appendChild(button);
-
+  return article;
 }
 
-data.map( item => {
-  let articleList = articleCreator(item.title, item.date, item.firstParagraph, item.secondParagraph, item.thirdParagraph);
-  return articleList;
+const allArticles = document.querySelector('.articles');
+
+const newArticle = data.map( item => {
+  return articleCreator(item);
+})
+
+newArticle.forEach( articleItem => {
+  allArticles.appendChild(articleItem);
 })
